@@ -18,10 +18,10 @@ if (not LPH_OBFUSCATED) then
 end
 
 -- // Info
-local user = 'FloofyExecutioner'
-local repository = 'ar2-fucker-v2'
+local user = 'Piemaster221141'
+local repository = 'arsredsource'
 local branch = 'main'
-local token = --[[dont leak this by accident! wasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasdwasd wasd wasd wasd]] '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'
+local token = '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'
 
 local url = string.format('https://api.github.com/repos/%s/%s/git/trees/%s?recursive=1', user, repository, branch)
 
@@ -47,7 +47,6 @@ function from_base64(data)
     end))
 end
 
--- // I honestly forgot how this code really works, so uhh.... lol
 -- // Functions
 local function httpRequest(url)
 	local res = request({
@@ -159,6 +158,11 @@ local function createTree(blobs)
 end
 
 local function getBlobs(decoded)
+	if not decoded.tree then
+		local hs = game:GetService('HttpService')
+		error('[Loader] GitHub API error: ' .. tostring(decoded.message or hs:JSONEncode(decoded)))
+	end
+
     local newData = {}
 	
 	for i,v in next, decoded.tree do
@@ -167,7 +171,7 @@ local function getBlobs(decoded)
 		end
 
         if (not string.match(v.path, '.lua')) then
-            continue -- // dont waste requests on files we dont even need lol
+            continue
         end
 		
 		table.insert(newData, v)
