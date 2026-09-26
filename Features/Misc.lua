@@ -10,6 +10,11 @@ return function(Cheat)
 
     local Network = Cheat.Framework.require('Libraries', 'Network')
     local Interface = Cheat.Framework.require('Libraries', 'Interface')
+    -- // Compat shim: restore Interface:Get()
+    if not Interface.Get then
+        local _, registry = debug.getupvalue(Interface.Register, 1)
+        Interface.Get = function(self, name) return registry[name] end
+    end
     local Cameras = Cheat.Framework.require('Libraries', 'Cameras')
     local Globals = Cheat.Framework.require('Configs', 'Globals')
     local VehicleController = Cheat.Framework.require('Classes', 'VehicleControler')
