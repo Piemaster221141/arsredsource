@@ -21,7 +21,7 @@ end
 local user = 'Piemaster221141'
 local repository = 'arsredsource'
 local branch = 'main'
-local token = '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'
+local token = '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'
 
 local url = string.format('https://api.github.com/repos/%s/%s/git/trees/%s?recursive=1', user, repository, branch)
 
