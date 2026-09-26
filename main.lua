@@ -245,7 +245,7 @@ function Cheat:hookAndTostringSpoof(t, index, hookFunction) -- // Example: hookA
 end
 
 Cheat.networkWait = LPH_JIT_MAX(function(self, pings)
-    Network:Fetch('Get Server Debug State')
+    --Network:Fetch('Get Server Debug State')
 
     return true
 end)
