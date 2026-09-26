@@ -10,6 +10,11 @@ return function(Cheat)
 
     local UserSettings = Cheat.Framework.require('Libraries', 'UserSettings')
     local Interface = Cheat.Framework.require('Libraries', 'Interface')
+    -- // Compat shim: restore Interface:Get()
+    if not Interface.Get then
+        local _, registry = debug.getupvalue(Interface.Register, 1)
+        Interface.Get = function(self, name) return registry[name] end
+    end
     local Resources = Cheat.Framework.require('Libraries', 'Resources')
     local AR2Lighting = Cheat.Framework.require('Libraries', 'Lighting')
     local AR2Players = Cheat.Framework.require('Classes', 'Players')
