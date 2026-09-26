@@ -5,6 +5,11 @@ return function(Cheat)
     local Signal = REQUIRE_MODULE('Modules/Classes/FastSignal.lua')
     
     local Interface = Cheat.Framework.require('Libraries', 'Interface')
+    -- // Compat shim: restore Interface:Get()
+    if not Interface.Get then
+        local _, registry = debug.getupvalue(Interface.Register, 1)
+        Interface.Get = function(self, name) return registry[name] end
+    end
     local Characters = Cheat.Framework.require('Classes', 'Characters')
     local Cameras = Cheat.Framework.require('Libraries', 'Cameras')
     local Bullets = Cheat.Framework.require('Libraries', 'Bullets')
