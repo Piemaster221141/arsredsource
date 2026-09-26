@@ -9,6 +9,11 @@ return function(Cheat)
 
     local UserSettings = Cheat.Framework.require('Libraries', 'UserSettings')
     local Interface = Cheat.Framework.require('Libraries', 'Interface')
+    -- // Compat shim: restore Interface:Get()
+    if not Interface.Get then
+        local _, registry = debug.getupvalue(Interface.Register, 1)
+        Interface.Get = function(self, name) return registry[name] end
+    end
     local Animators = Cheat.Framework.require('Classes', 'Animators')
     local Cameras = Cheat.Framework.require('Libraries', 'Cameras')
     local World = Cheat.Framework.require('Libraries', 'World')
