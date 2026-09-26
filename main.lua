@@ -147,6 +147,14 @@ local World = Framework.require('Libraries', 'World')
 local Cameras = Framework.require('Libraries', 'Cameras')
 local Interface = Framework.require('Libraries', 'Interface')
 
+-- // Compat shim: restore Interface:Get() removed in newer AR2 versions
+do
+    local _, registry = debug.getupvalue(Interface.Register, 1)
+    Interface.Get = function(self, name)
+        return registry[name]
+    end
+end
+
 -- Interface:GetGui('NetworkDebug'):Destroy()
 Notification.ChatGui = Interface:GetPlayerGui():FindFirstChild("Chat")
 
